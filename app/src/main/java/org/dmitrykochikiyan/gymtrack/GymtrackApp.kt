@@ -1,9 +1,9 @@
 package org.dmitrykochikiyan.gymtrack
 
 import android.content.res.Resources
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.*
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
@@ -15,33 +15,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 import org.dmitrykochikiyan.gymtrack.Routes.SPLASH_SCREEN
+import org.dmitrykochikiyan.gymtrack.navigation.Navigator
 import org.dmitrykochikiyan.gymtrack.navigation.gymtrackGraph
 import org.dmitrykochikiyan.gymtrack.presentation.theme.GymtrackTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GymtrackApp() {
     GymtrackTheme {
         Surface {
             val appState = rememberAppState()
             Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text("GymTrack") },
-                        navigationIcon = {
-                            Icon(
-                                imageVector = Icons.Filled.Menu,
-                                contentDescription = "Menu"
-                            )
-                        },
-                    )
-                }
+                snackbarHost = { appState.snackbarHostState }
             ) {
                 NavHost(
                     navController = appState.navigationController,
                     startDestination = SPLASH_SCREEN
                 ) {
-                    gymtrackGraph(appState)
+                    gymtrackGraph(Navigator(appState.navigationController))
                 }
             }
         }
@@ -62,5 +52,7 @@ fun rememberResources(): Resources {
     LocalConfiguration.current
     return LocalContext.current.resources
 }
+
+
 
 

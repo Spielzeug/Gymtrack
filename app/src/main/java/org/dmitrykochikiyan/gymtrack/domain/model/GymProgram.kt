@@ -1,8 +1,7 @@
 package org.dmitrykochikiyan.gymtrack.domain.model
 
-data class GymProgram(
-    val id: String = "",
+data class  GymProgram(
     val name: String = "",
     val description: String = "",
-    val sets: List<ExerciseSet> = emptyList()
+    val workouts: List<Workout> = emptyList()
 )

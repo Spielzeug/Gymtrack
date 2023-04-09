@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 @Stable
 class GymtrackAppState(
     val navigationController: NavHostController,
-    private val snackbarHostState: SnackbarHostState,
+    val snackbarHostState: SnackbarHostState,
     private val coroutineScope: CoroutineScope,
     private val resources: Resources
 ) {
@@ -23,25 +23,5 @@ class GymtrackAppState(
         }
     }
 
-    fun popUp() {
-        navigationController.popBackStack()
-    }
 
-    fun navigate(route: String) {
-        navigationController.navigate(route) { launchSingleTop = true }
-    }
-
-    fun navigateAndPopUp(route: String, popUp: String) {
-        navigationController.navigate(route) {
-            launchSingleTop = true
-            popUpTo(popUp) { inclusive = true }
-        }
-    }
-
-    fun clearAndNavigate(route: String) {
-        navigationController.navigate(route) {
-            launchSingleTop = true
-            popUpTo(0) { inclusive = true }
-        }
-    }
 }

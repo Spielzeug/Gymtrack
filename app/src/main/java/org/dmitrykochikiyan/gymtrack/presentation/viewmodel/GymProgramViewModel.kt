@@ -1,11 +1,10 @@
 package org.dmitrykochikiyan.gymtrack.presentation.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.dmitrykochikiyan.gymtrack.domain.model.Response
 import org.dmitrykochikiyan.gymtrack.domain.repository.GymProgramsResponse
@@ -14,8 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GymProgramViewModel @Inject constructor(private val useCases: UseCases) : ViewModel() {
-    var gymProgramsResponse by mutableStateOf<GymProgramsResponse>(Response.Loading)
-        private set
+    private val _gymProgramsResponseState = MutableStateFlow<GymProgramsResponse>(Response.Loading)
+    val gymProgramsResponseState: StateFlow<GymProgramsResponse> = _gymProgramsResponseState
+
 
     init {
         getGymPrograms()
@@ -23,7 +23,7 @@ class GymProgramViewModel @Inject constructor(private val useCases: UseCases) : 
 
     private fun getGymPrograms() = viewModelScope.launch {
         useCases.getGymPrograms().collect() {
-            gymProgramsResponse = it
+            _gymProgramsResponseState.value = it
         }
     }
 }
