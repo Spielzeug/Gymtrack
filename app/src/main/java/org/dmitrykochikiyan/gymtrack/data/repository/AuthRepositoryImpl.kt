@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
 import org.dmitrykochikiyan.gymtrack.domain.model.Response
 import org.dmitrykochikiyan.gymtrack.domain.repository.AuthRepository
+import org.dmitrykochikiyan.gymtrack.domain.repository.UserResponse
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -15,13 +16,13 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
     override val currentUser: FirebaseUser?
         get() = firebaseAuth.currentUser
 
-    override suspend fun signIn(email: String, password: String): Response<FirebaseUser?> =
+    override suspend fun signIn(email: String, password: String): UserResponse =
         getResponseForAuthRequest(firebaseAuth.signInWithEmailAndPassword(email, password))
 
-    override suspend fun signUp(email: String, password: String): Response<FirebaseUser?> =
+    override suspend fun signUp(email: String, password: String): UserResponse =
         getResponseForAuthRequest(firebaseAuth.createUserWithEmailAndPassword(email, password))
 
-    override suspend fun signInAnonymously(): Response<FirebaseUser?> =
+    override suspend fun signInAnonymously(): UserResponse =
         getResponseForAuthRequest(firebaseAuth.signInAnonymously())
 
     override suspend fun signOut(): Response<Unit> {
@@ -35,7 +36,7 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
         } ?: Response.Failure(Exception("User is not signed in"))
     }
 
-    private suspend fun getResponseForAuthRequest(authTask: Task<AuthResult>): Response<FirebaseUser?> =
+    private suspend fun getResponseForAuthRequest(authTask: Task<AuthResult>): UserResponse =
         suspendCoroutine { continuation ->
             authTask.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
