@@ -45,8 +45,8 @@ class GymProgramRepositoryImpl @Inject constructor(private val gymProgramsRef: C
         }
     }
 
-    override fun getWorkouts(gymProgramId: String): Flow<WorkoutsResponse> =
-        getResponseFlow(gymProgramsRef.document(gymProgramId).collection("workouts")) { snapshot ->
+    override fun getWorkouts(programId: String): Flow<WorkoutsResponse> =
+        getResponseFlow(gymProgramsRef.document(programId).collection("workouts")) { snapshot ->
             when {
                 snapshot != null -> {
                     val workouts = snapshot.documents.mapNotNull {

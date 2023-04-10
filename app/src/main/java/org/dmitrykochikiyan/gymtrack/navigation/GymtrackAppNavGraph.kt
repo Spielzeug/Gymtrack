@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.dmitrykochikiyan.gymtrack.Routes.GYM_PROGRAM_SCREEN
 import org.dmitrykochikiyan.gymtrack.Routes.PROGRAM_ID
+import org.dmitrykochikiyan.gymtrack.Routes.PROGRAM_ID_ARG
 import org.dmitrykochikiyan.gymtrack.Routes.PROGRAM_WOURKOUTS_SCREEN
 import org.dmitrykochikiyan.gymtrack.Routes.SPLASH_SCREEN
 import org.dmitrykochikiyan.gymtrack.presentation.view.GymProgramScreen
@@ -33,7 +34,7 @@ fun NavGraphBuilder.gymtrackGraph(navigator: Navigator) {
         GymProgramScreen(openAndPopUp = { route, popUp -> navigator.navigateAndPopUp(route, popUp) })
     }
 
-    composable(route = PROGRAM_WOURKOUTS_SCREEN,
+    composable(route = "$PROGRAM_WOURKOUTS_SCREEN$PROGRAM_ID_ARG",
         arguments = listOf(
             navArgument(PROGRAM_ID) {
                 type = NavType.StringType
@@ -41,6 +42,9 @@ fun NavGraphBuilder.gymtrackGraph(navigator: Navigator) {
                 defaultValue = ""
             }
         )) {
-        ProgramWorkoutsScreen(openAndPopUp = { route, popUp -> navigator.navigateAndPopUp(route, popUp) })
+        ProgramWorkoutsScreen(
+            openAndPopUp = { route, popUp -> navigator.navigateAndPopUp(route, popUp) },
+            programId = it.arguments?.getString(PROGRAM_ID) ?: ""
+        )
     }
 }

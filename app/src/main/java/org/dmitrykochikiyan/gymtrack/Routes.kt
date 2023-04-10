@@ -18,4 +18,5 @@ object Routes {
     const val PROGRAM_WOURKOUTS_SCREEN = "ProgramWorkoutsScreen"
 
     const val PROGRAM_ID = "programId"
+    const val PROGRAM_ID_ARG = "?$PROGRAM_ID={$PROGRAM_ID}"
 }

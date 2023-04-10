@@ -28,10 +28,7 @@ class GymProgramViewModel @Inject constructor(private val useCases: UseCases) : 
     private val _gymProgramsResponseState = MutableStateFlow<GymProgramsResponse>(Response.Loading)
     val gymProgramsResponseState: StateFlow<GymProgramsResponse> = _gymProgramsResponseState
 
-
-    init {
-        getGymPrograms()
-    }
+    fun initialize() = getGymPrograms()
 
     private fun getGymPrograms() = viewModelScope.launch {
         useCases.getGymPrograms().collect() {

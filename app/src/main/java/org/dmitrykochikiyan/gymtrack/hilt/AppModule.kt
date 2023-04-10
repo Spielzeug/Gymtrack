@@ -30,6 +30,7 @@ import org.dmitrykochikiyan.gymtrack.domain.repository.GymProgramRepository
 import org.dmitrykochikiyan.gymtrack.domain.usecase.*
 import org.dmitrykochikiyan.gymtrack.domain.usecase.auth.*
 import org.dmitrykochikiyan.gymtrack.domain.usecase.program.GetGymPrograms
+import org.dmitrykochikiyan.gymtrack.domain.usecase.program.GetProgramWorkouts
 import org.dmitrykochikiyan.gymtrack.domain.usecase.program.UseCases
 import javax.inject.Singleton
 
@@ -92,5 +93,6 @@ object AppModule {
     @Provides
     fun providesUseCases(gymProgramRepository: GymProgramRepository) = UseCases(
         getGymPrograms = GetGymPrograms(gymProgramRepository),
+        getProgramWorkouts = GetProgramWorkouts(gymProgramRepository)
     )
 }

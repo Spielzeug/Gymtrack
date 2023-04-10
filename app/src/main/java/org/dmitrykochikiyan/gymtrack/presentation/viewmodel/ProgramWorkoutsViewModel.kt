@@ -13,10 +13,26 @@ limitations under the License.
 package org.dmitrykochikiyan.gymtrack.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import org.dmitrykochikiyan.gymtrack.domain.model.Response
+import org.dmitrykochikiyan.gymtrack.domain.repository.WorkoutsResponse
+import org.dmitrykochikiyan.gymtrack.domain.usecase.program.UseCases
 import javax.inject.Inject
 
 @HiltViewModel
-class ProgramWorkoutsViewModel @Inject constructor() : ViewModel(){
+class ProgramWorkoutsViewModel @Inject constructor(private val useCases: UseCases) : ViewModel() {
+    private val _workoutsResponseState = MutableStateFlow<WorkoutsResponse>(Response.Loading)
+    val workoutsResponseState: StateFlow<WorkoutsResponse> = _workoutsResponseState
 
+    fun initialize(programId: String) {
+        viewModelScope.launch {
+            useCases.getProgramWorkouts(programId).collect() {
+                _workoutsResponseState.value = it
+            }
+        }
+    }
 }

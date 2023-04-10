@@ -24,5 +24,5 @@ typealias WorkoutsResponse = Response<Workouts>
 
 interface GymProgramRepository {
     fun getGymPrograms(): Flow<GymProgramsResponse>
-    fun getWorkouts(gymProgramId: String): Flow<WorkoutsResponse>
+    fun getWorkouts(programId: String): Flow<WorkoutsResponse>
 }
