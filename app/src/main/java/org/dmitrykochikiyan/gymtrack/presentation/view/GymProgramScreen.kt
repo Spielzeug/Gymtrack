@@ -82,7 +82,7 @@ fun GymProgramsList(programs: List<GymProgram>, innerPadding: PaddingValues, ope
         items(programs) { program ->
             GymProgramItem(program) {
                 openAndPopUp(
-                    "$PROGRAM_WOURKOUTS_SCREEN?$PROGRAM_ID={${program.id}}",
+                    "$PROGRAM_WOURKOUTS_SCREEN?$PROGRAM_ID=${program.id}",
                     GYM_PROGRAM_SCREEN
                 )
             }
