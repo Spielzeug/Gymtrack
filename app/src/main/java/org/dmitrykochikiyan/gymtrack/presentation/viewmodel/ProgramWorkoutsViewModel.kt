@@ -10,10 +10,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package org.dmitrykochikiyan.gymtrack.domain.usecase.auth
+package org.dmitrykochikiyan.gymtrack.presentation.viewmodel
 
-import org.dmitrykochikiyan.gymtrack.domain.repository.AuthRepository
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignOut(private val authRepository: AuthRepository) {
-    suspend operator fun invoke() = authRepository.signOut()
+@HiltViewModel
+class ProgramWorkoutsViewModel @Inject constructor() : ViewModel(){
+
 }

@@ -10,10 +10,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package org.dmitrykochikiyan.gymtrack.domain.usecase.auth
+package org.dmitrykochikiyan.gymtrack.presentation.view
 
-import org.dmitrykochikiyan.gymtrack.domain.repository.AuthRepository
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import org.dmitrykochikiyan.gymtrack.presentation.viewmodel.ProgramWorkoutsViewModel
 
-class SignOut(private val authRepository: AuthRepository) {
-    suspend operator fun invoke() = authRepository.signOut()
+@Composable
+fun ProgramWorkoutsScreen(
+    openAndPopUp: (String, String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ProgramWorkoutsViewModel = hiltViewModel()
+) {
 }
